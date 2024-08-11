@@ -2,6 +2,7 @@
 // See the LICENCE file in the repository root for full licence text.
 
 using osu.Framework.Input;
+using osu.Framework.Platform;
 
 namespace osu.Framework.Graphics.UserInterface
 {
@@ -16,5 +17,7 @@ namespace osu.Framework.Graphics.UserInterface
         protected override bool AllowIme => false;
 
         protected override Drawable AddCharacterToFlow(char c) => base.AddCharacterToFlow(MaskCharacter);
+
+        protected override TextInputType TextInputType => TextInputType.PasswordHidden;
     }
 }

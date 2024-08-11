@@ -61,6 +61,11 @@ namespace osu.Framework.Input
             window.SetTextInputRect(rectangle);
         }
 
+        public override void SetTextInputType(TextInputType type)
+        {
+            window.SetTextInputType(type);
+        }
+
         public override void ResetIme()
         {
             base.ResetIme();

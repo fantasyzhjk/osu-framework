@@ -175,6 +175,11 @@ namespace osu.Framework.Platform.SDL2
 
         public void StopTextInput() => ScheduleCommand(SDL_StopTextInput);
 
+        // TextInputType is not supported on SDL2
+        public void SetTextInputType(TextInputType _)
+        {
+        }
+
         /// <summary>
         /// Resets internal state of the platform-native IME.
         /// This will clear its composition text and prepare it for new input.

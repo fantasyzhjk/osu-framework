@@ -120,6 +120,8 @@ namespace osu.Framework.Graphics.UserInterface
         [Resolved]
         private TextInputSource textInput { get; set; }
 
+        protected virtual TextInputType TextInputType => TextInputType.Normal;
+
         [Resolved]
         private Clipboard clipboard { get; set; }
 
@@ -1372,6 +1374,9 @@ namespace osu.Framework.Graphics.UserInterface
 
             // TextBox has special handling of text input activation when focus is changed directly from one TextBox to another.
             // We don't deactivate and activate, but instead keep text input active during the focus handoff, so that virtual keyboards on phones don't flicker.
+
+            if (previous?.TextInputType != TextInputType)
+                textInput.SetTextInputType(TextInputType);
 
             if (previous?.textInput == textInput)
                 textInput.EnsureActivated(AllowIme, ScreenSpaceDrawQuad.AABBFloat);

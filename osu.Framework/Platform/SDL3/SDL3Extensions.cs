@@ -3,11 +3,13 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Xml.Linq;
 using osu.Framework.Graphics.Primitives;
 using osu.Framework.Input;
 using osu.Framework.Input.Bindings;
 using osuTK.Input;
 using SDL;
+using Vortice.DXGI;
 using static SDL.SDL3;
 
 namespace osu.Framework.Platform.SDL3
@@ -1108,6 +1110,42 @@ namespace osu.Framework.Platform.SDL3
         {
             name = SDL_GetTouchDeviceName(e.touchID);
             return name != null;
+        }
+
+        public static SDL_TextInputType ToSDLTextInputType(this TextInputType type)
+        {
+            switch (type)
+            {
+                case TextInputType.Normal:
+                    return SDL_TextInputType.SDL_TEXTINPUT_TYPE_TEXT;
+
+                case TextInputType.Name:
+                    return SDL_TextInputType.SDL_TEXTINPUT_TYPE_TEXT_NAME;
+
+                case TextInputType.Email:
+                    return SDL_TextInputType.SDL_TEXTINPUT_TYPE_TEXT_EMAIL;
+
+                case TextInputType.Username:
+                    return SDL_TextInputType.SDL_TEXTINPUT_TYPE_TEXT_USERNAME;
+
+                case TextInputType.PasswordHidden:
+                    return SDL_TextInputType.SDL_TEXTINPUT_TYPE_TEXT_PASSWORD_HIDDEN;
+
+                case TextInputType.PasswordVisible:
+                    return SDL_TextInputType.SDL_TEXTINPUT_TYPE_TEXT_PASSWORD_VISIBLE;
+
+                case TextInputType.Number:
+                    return SDL_TextInputType.SDL_TEXTINPUT_TYPE_NUMBER;
+
+                case TextInputType.NumberPasswordHidden:
+                    return SDL_TextInputType.SDL_TEXTINPUT_TYPE_NUMBER_PASSWORD_HIDDEN;
+
+                case TextInputType.NumberPasswordVisible:
+                    return SDL_TextInputType.SDL_TEXTINPUT_TYPE_NUMBER_PASSWORD_VISIBLE;
+
+                default:
+                    return SDL_TextInputType.SDL_TEXTINPUT_TYPE_TEXT;
+            }
         }
     }
 }

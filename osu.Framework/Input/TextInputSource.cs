@@ -6,6 +6,7 @@
 using System;
 using System.Threading;
 using osu.Framework.Graphics.Primitives;
+using osu.Framework.Platform;
 
 namespace osu.Framework.Input
 {
@@ -88,6 +89,15 @@ namespace osu.Framework.Input
         /// </summary>
         /// <param name="rectangle">Should be provided in screen space.</param>
         public virtual void SetImeRectangle(RectangleF rectangle)
+        {
+        }
+
+        /// <summary>
+        /// Sets input mode for text. You can enable a platform-specific behavior when the user is typing passwords as an example.
+        /// Some values may not be supported by the platform.
+        /// </summary>
+        /// <param name="type">Mode to use</param>
+        public virtual void SetTextInputType(TextInputType type)
         {
         }
 

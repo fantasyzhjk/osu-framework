@@ -45,6 +45,7 @@ namespace osu.Framework.Platform
         void StartTextInput(bool allowIme);
         void StopTextInput();
         void SetTextInputRect(RectangleF rectangle);
+        void SetTextInputType(TextInputType type);
         void ResetIme();
     }
 

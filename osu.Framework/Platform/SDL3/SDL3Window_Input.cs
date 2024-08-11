@@ -182,9 +182,29 @@ namespace osu.Framework.Platform.SDL3
             }
         }
 
-        public virtual void StartTextInput(bool allowIme) => ScheduleCommand(() => SDL_StartTextInput(SDLWindowHandle));
+        private SDL_PropertiesID textInputPropertiesID;
+
+        public virtual void StartTextInput(bool allowIme) => ScheduleCommand(() =>
+        {
+            if (textInputPropertiesID != 0)
+                SDL_StartTextInputWithProperties(SDLWindowHandle, textInputPropertiesID);
+            else
+                SDL_StartTextInput(SDLWindowHandle);
+        });
 
         public void StopTextInput() => ScheduleCommand(() => SDL_StopTextInput(SDLWindowHandle));
+
+        public void SetTextInputType(TextInputType type) => ScheduleCommand(() =>
+        {
+            if (textInputPropertiesID == 0)
+            {
+                textInputPropertiesID = SDL_CreateProperties();
+                SDL_SetNumberProperty(textInputPropertiesID, SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER, (long)SDL_Capitalization.SDL_CAPITALIZE_NONE);
+            }
+
+            SDL_TextInputType sdlType = type.ToSDLTextInputType();
+            SDL_SetNumberProperty(textInputPropertiesID, SDL_PROP_TEXTINPUT_TYPE_NUMBER, (long)sdlType);
+        });
 
         /// <summary>
         /// Resets internal state of the platform-native IME.
